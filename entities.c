@@ -1,12 +1,10 @@
-#include <math.h>
 #include <stdlib.h>
 
-#include <nusys.h>
-
-#include "asteroid.h"
 #include "data.h"
 #include "defines.h"
+#include "entities.h"
 #include "gfx.h"
+#include "mathdefs.h"
 #include "shape.h"
 #include "util.h"
 
@@ -15,7 +13,7 @@ float calculate_asteroid_radius(unsigned int shape)
     float r;
     float r_max = 0.0f;
 
-    const uint16_t *vertices = asteroid_shape_data[shape].vertices;
+    const float *vertices = asteroid_shape_data[shape].vertices;
 
     unsigned int i;
     unsigned int n = asteroid_shape_data[shape].num_vertices;;
