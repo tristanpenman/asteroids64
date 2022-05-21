@@ -1,6 +1,6 @@
-# Asteroids 64
+# Asteroids64
 
-This is the code for a work-in-progress N64 port of my Asteroids clone.
+This is the code for a work-in-progress N64 port of my [Asteroids clone](https://github.com/tristanpenman/asteroids).
 
 The general approach that I've taken is to gradually refactor the code so that platform-specific code is well encapsulated, before back-porting those changes to the original codebase. My plan is to eventually merge the two codebases, and build both versions from the same set of source and data files.
 
