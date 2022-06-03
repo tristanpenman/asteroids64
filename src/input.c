@@ -77,6 +77,8 @@ void input_init()
     bitmasks[INPUT_BUTTON_B] = B_BUTTON;
     bitmasks[INPUT_BUTTON_Z] = Z_TRIG;
     bitmasks[INPUT_BUTTON_START] = START_BUTTON;
+    bitmasks[INPUT_DPAD_DOWN] = D_JPAD;
+    bitmasks[INPUT_DPAD_UP] = U_JPAD;
 }
 
 void input_reset()

@@ -20,16 +20,14 @@ void leaderboard_draw()
 
     canvas_start_drawing(true);
 
-    canvas_draw_text_centered("LEADERBOARD", -0.30f, 0.7f);
-
     for (i = 0; i < NUM_SCORES; i++) {
-        if (highscores_read(i, &score, initials) && initials[0] != '-') {
+        if (highscores_read(i, &score, initials) && initials[0] >= 'A' && initials[0] <= 'Z') {
             sprintf(str, "%2d   %.3s %10d ", i + 1, initials, score);
         } else {
             sprintf(str, "%2d   ---          - ", i + 1);
         }
 
-        canvas_draw_text_centered(str, -0.14f + 0.03f * (float) i, 0.24f);
+        canvas_draw_text_centered(str, -0.3f + 0.054f * (float) i, 0.45f);
 
         // start a new display list
         canvas_finish_drawing(false);
@@ -37,7 +35,7 @@ void leaderboard_draw()
     }
 
 #ifdef N64
-    canvas_draw_text_centered("PRESS START FOR MAIN MENU", 0.23f, 0.45f);
+    canvas_draw_text_centered("PRESS START FOR MAIN MENU", 0.27f, 0.45f);
 #else
     canvas_draw_text_centered("PRESS ENTER FOR MAIN MENU", 0.26f, 0.24f);
 #endif

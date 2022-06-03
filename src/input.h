@@ -35,7 +35,9 @@ enum input
     INPUT_KEY_Y,
     INPUT_KEY_Z,
 
-    // meta
+    // general
+    INPUT_KEY_BACKSPACE,
+    INPUT_KEY_DELETE,
     INPUT_KEY_ESCAPE,
     INPUT_KEY_ENTER,
     INPUT_KEY_RETURN,
@@ -80,6 +82,8 @@ int input_register();
 bool input_map(int handle, enum input);
 
 bool input_active(int handle);
+
+bool input_triggered(int handle);
 
 void input_read_joystick(int8_t* x, int8_t* y);
 
