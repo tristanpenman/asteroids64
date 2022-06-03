@@ -1,4 +1,4 @@
-# Asteroids64
+# Asteroids 64
 
 This is the code for a work-in-progress N64 port of my [Asteroids clone](https://github.com/tristanpenman/asteroids).
 
@@ -51,3 +51,13 @@ The `-d` flag enables debug mode, and will show the output of `debug_printf` cal
 ### Loader64
 
 Before I discovered UNFLoader, I used a small C program called [loader64](https://github.com/tristanpenman/loader64). This was based on code written by [James Friend](https://github.com/jsdf), who has made a number of great contributions to the N64 Homebrew community.
+
+## License
+
+This code has been released under the MIT License. See the [LICENSE](LICENSE) file for more information.
+
+### Assets
+
+Game assets are under copyright by Atari.
+
+The graphics and audio that have been reproduced here are all used in good faith. The clone is intentionally incomplete, so as to not detract from the value of any Atari releases of the game.
