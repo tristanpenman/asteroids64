@@ -11,7 +11,13 @@
 
 static int input_return;
 
-void leaderboard_draw()
+/******************************************************************************
+ *
+ * Helper functions
+ *
+ *****************************************************************************/
+
+static void leaderboard_draw()
 {
     int i;
     uint32_t score;

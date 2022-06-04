@@ -10,6 +10,7 @@
 #include "data.h"
 #include "debug.h"
 #include "defines.h"
+#include "draw.h"
 #include "entities.h"
 #include "gameover.h"
 #include "gfx.h"
@@ -75,15 +76,6 @@ static musHandle snd_handle;
  * Helper functions
  *
  *****************************************************************************/
-
-static void draw_score(int score)
-{
-    static char buffer[SCORE_BUFFER_SIZE];
-
-    sprintf(buffer, "%u", score);
-
-    canvas_draw_text(buffer, -0.45f, -0.33f, 0.65f);
-}
 
 static unsigned int num_asteroids_for_level(int level) {
     switch (level) {

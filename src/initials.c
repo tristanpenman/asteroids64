@@ -2,6 +2,8 @@
 #include <string.h>
 
 #include "canvas.h"
+#include "defines.h"
+#include "draw.h"
 #include "highscores.h"
 #include "input.h"
 #include "loop.h"
@@ -25,15 +27,6 @@ static int input_next;
  * Helper functions
  *
  *****************************************************************************/
-
-static void draw_score(int score)
-{
-    static char buffer[SCORE_BUFFER_SIZE];
-
-    sprintf(buffer, "%u", score);
-
-    canvas_draw_text(buffer, -0.45f, -0.33f, 0.65f);
-}
 
 static void handle_input()
 {
