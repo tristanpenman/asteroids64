@@ -66,9 +66,6 @@ void mainproc()
     debug_printf("input_init...\n");
     input_init();
 
-    debug_printf("storage_init...\n");
-    storage_init();
-
     debug_printf("highscores_load...\n");
     if (storage_available()) {
         if (!highscores_load()) {

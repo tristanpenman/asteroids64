@@ -14,6 +14,8 @@
 #include "entities.h"
 #include "gameover.h"
 #include "gfx.h"
+#include "highscores.h"
+#include "initials.h"
 #include "input.h"
 #include "loop.h"
 #include "mathdefs.h"
@@ -111,6 +113,11 @@ static void update_player(float factor)
         if (player.death_delay >= SHIP_DEATH_DELAY) {
             if (player.lives >= 0) {
                 player_reset(&player);
+#ifndef __EMSCRIPTEN__
+            } else if (highscores_check(player.score)) {
+                initials_init(player.score);
+                set_main_loop(initials_loop);
+#endif
             } else {
                 gameover_init();
                 set_main_loop(gameover_loop);

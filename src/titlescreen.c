@@ -44,7 +44,6 @@ bool titlescreen_init()
 #ifndef __EMSCRIPTEN__
     input_map(input_leaderboard, INPUT_KEY_H);
 #endif
-    input_map(input_leaderboard, INPUT_BUTTON_A);
     input_map(input_leaderboard, INPUT_BUTTON_B);
 
     // start action

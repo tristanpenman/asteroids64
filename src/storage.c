@@ -10,8 +10,6 @@
 
 static NUContPakFile pak_file;
 
-static bool available = false;
-
 /******************************************************************************
  *
  * Helper functions
@@ -21,6 +19,8 @@ static bool available = false;
 bool open_controller_pak()
 {
     s32 ret;
+
+    nuContPakCodeSet(COMPANY_CODE, GAME_CODE);
 
     nuContQueryRead();
 
@@ -72,16 +72,9 @@ bool open_controller_pak()
  *
  *****************************************************************************/
 
-void storage_init()
-{
-    nuContPakCodeSet(COMPANY_CODE, GAME_CODE);
-
-    available = open_controller_pak();
-}
-
 bool storage_available()
 {
-    return available;
+    return open_controller_pak();
 }
 
 int storage_read(const char *filename, char *buffer, int read_size)
@@ -89,7 +82,7 @@ int storage_read(const char *filename, char *buffer, int read_size)
     s32 err;
     char notename[16];
 
-    if (!available) {
+    if (!storage_available()) {
         return STORAGE_ERR_NOT_AVAILABLE;
     }
 
@@ -100,6 +93,7 @@ int storage_read(const char *filename, char *buffer, int read_size)
 
     err = nuContPakFileOpen(&pak_file, notename, "", NU_CONT_PAK_MODE_NOCREATE, 0);
     if (err) {
+        debug_printf(" - nuContPakFileOpen return: %d\n");
         return STORAGE_ERR_OPEN_FILE;
     }
 
@@ -116,7 +110,7 @@ int storage_write(const char *filename, const char *buffer, int write_size)
     s32 err;
     char notename[16];
 
-    if (!available) {
+    if (!storage_available()) {
         return STORAGE_ERR_NOT_AVAILABLE;
     }
 

@@ -7,6 +7,7 @@
 #include "highscores.h"
 #include "input.h"
 #include "loop.h"
+#include "storage.h"
 #include "timing.h"
 #include "titlescreen.h"
 
