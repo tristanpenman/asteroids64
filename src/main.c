@@ -65,7 +65,7 @@ void mainproc()
 
     debug_printf("input_init...\n");
     input_init();
-   
+
     debug_printf("storage_init...\n");
     storage_init();
 
