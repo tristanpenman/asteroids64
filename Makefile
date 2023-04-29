@@ -1,3 +1,5 @@
+# Makefile for Legacy SDK
+
 include $(ROOT)/usr/include/make/PRdefs
 
 N64KITDIR = c:/nintendo/n64kit

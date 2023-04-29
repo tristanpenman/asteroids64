@@ -1,4 +1,4 @@
-# Makefile to build asteroids
+# Makefile for Modern SDK
 
 TARGET_STRING := asteroids
 TARGET := $(TARGET_STRING)
