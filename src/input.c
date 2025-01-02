@@ -5,8 +5,6 @@
 
 #include "input.h"
 
-#define INPUT_MAX_HANDLES 32
-
 struct check {
     enum input inp;
     int bitmask;
