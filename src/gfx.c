@@ -1,10 +1,19 @@
 #include <nusys.h>
+#include <PR/os_vi.h>
 
 #include "gfx.h"
 
 Gfx gfx_glist[GLX_GLIST_COUNT][GFX_GLIST_LEN];
 Dynamic gfx_dynamic;
 Gfx* glistp;
+
+#ifndef GFX_FRAMEBUFFER_COUNT
+#define GFX_FRAMEBUFFER_COUNT 3
+#endif
+
+static u16 __attribute__((aligned(64))) framebuffers[GFX_FRAMEBUFFER_COUNT][SCREEN_HT * SCREEN_WD];
+static u16* framebuffer_ptrs[GFX_FRAMEBUFFER_COUNT];
+static u16 __attribute__((aligned(64))) depth_buffer[SCREEN_HT * SCREEN_WD];
 
 // Wrapper for memory alignment
 static Vp vp;
@@ -27,7 +36,6 @@ static void gfx_update_viewport(void)
 static Gfx setup_rdpstate[] = {
     gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_OPA_SURF2),
     gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
-    gsDPSetScissor(G_SC_NON_INTERLACE, 0,0, SCREEN_WD, SCREEN_HT),
     gsDPSetColorDither(G_CD_BAYER),
     gsSPEndDisplayList()
 };
@@ -47,6 +55,15 @@ void gfx_init(void)
 
     nuGfxInit();
 
+    for (i = 0; i < GFX_FRAMEBUFFER_COUNT; i++) {
+        framebuffer_ptrs[i] = framebuffers[i];
+    }
+
+    nuGfxSetCfb(framebuffer_ptrs, GFX_FRAMEBUFFER_COUNT);
+    nuGfxSetZBuffer(depth_buffer);
+
+    osViSetMode(&osViModeNtscHpf1);
+
     gfx_update_viewport();
 }
 
@@ -62,10 +79,16 @@ void gfx_rcp_init(void)
 
     // Setting RDP
     gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(setup_rdpstate));
+
+    gDPSetScissor(glistp++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WD, SCREEN_HT);
 }
 
 void gfx_clear_cfb(void)
 {
+    // Setting addresses of the frame buffer/Z-buffer and clear them using
+    // nuGfxZBuffer (the address of the Z-buffer) and nuGfxCfb_ptr (the address
+    // of the frame buffer) which are global variables of NuSYSTEM
+
     // Clear the Z-buffer
     gDPSetDepthImage(glistp++, OS_K0_TO_PHYSICAL(nuGfxZBuffer));
     gDPSetCycleType(glistp++, G_CYC_FILL);
