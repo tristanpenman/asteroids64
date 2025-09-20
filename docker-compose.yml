@@ -1,0 +1,13 @@
+services:
+  assets:
+    build:
+      dockerfile: Dockerfile.assets
+    volumes:
+      - .:/source
+
+  n64:
+    build:
+      dockerfile: Dockerfile.n64
+    platform: linux/amd64
+    volumes:
+      - .:/source
