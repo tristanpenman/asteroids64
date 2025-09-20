@@ -4,6 +4,7 @@
 #include <nualstl_n.h>
 
 #include "debug.h"
+#include "gfx.h"
 #include "highscores.h"
 #include "input.h"
 #include "level.h"
@@ -55,7 +56,7 @@ char* titlescreen()
 
 void mainproc()
 {
-    nuGfxInit();
+    gfx_init();
 
     debug_init();
     debug_addcommand("sandbox", "Switch to sandbox mode", sandbox);
