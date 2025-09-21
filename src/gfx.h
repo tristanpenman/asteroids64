@@ -14,11 +14,8 @@
 // Number of gfx lists
 #define GLX_GLIST_COUNT 15
 
-// The projection-matrix structure
+// Modeling matrices
 typedef struct {
-    Mtx projection;
-
-    // Modeling matrices
     Mtx modeling;
     Mtx rotation;
     Mtx scale;

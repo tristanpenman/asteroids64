@@ -49,6 +49,8 @@ static int font_shape_ids[MAX_GLYPHS];
 
 static int current_gfx_list = 0;
 
+static Mtx frame_projection;
+
 void canvas_reset()
 {
     int i = 0;
@@ -128,6 +130,18 @@ void canvas_start_drawing(bool clear)
 
     // number of pixels per cycle
     gDPSetCycleType(glistp++, G_CYC_1CYCLE);
+
+    guOrtho(&frame_projection,
+        -SCREEN_WD / 2.f,  // left
+         SCREEN_WD / 2.f,  // right
+         SCREEN_HT / 2.f,  // bottom
+        -SCREEN_HT / 2.f,  // top
+        1.0f,       // near
+        10.0f,      // far
+        1.0f);      // scale
+
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&frame_projection),
+        G_MTX_LOAD | G_MTX_NOPUSH | G_MTX_PROJECTION);
 }
 
 void canvas_continue_drawing()
@@ -144,6 +158,9 @@ void canvas_continue_drawing()
 
     // number of pixels per cycle
     gDPSetCycleType(glistp++, G_CYC_1CYCLE);
+
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&frame_projection),
+        G_MTX_LOAD | G_MTX_NOPUSH | G_MTX_PROJECTION);
 }
 
 void canvas_set_colour(float r, float g, float b)
@@ -160,22 +177,9 @@ bool canvas_draw_shape(int shape, struct vec_2d position, float rotation, struct
         debug_printf("MAX_TRANSFORMS exceeeded");
     }
 
-    guOrtho(&transform->projection,
-        -SCREEN_WD / 2.f,  // left
-         SCREEN_WD / 2.f,  // right
-         SCREEN_HT / 2.f,  // bottom
-        -SCREEN_HT / 2.f,  // top
-        1.0f,       // near
-        10.0f,      // far
-        1.0f);      // scale
-
     guTranslate(&transform->modeling, position.x * SCREEN_WD, position.y * SCREEN_WD, 0.0f);
     guRotate(&transform->rotation, rotation, 0.0f, 0.0f, 1.0f);
     guScale(&transform->scale, scale.x, scale.y, 1.f);
-
-    // load projection matrix
-    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(transform->projection)),
-        G_MTX_LOAD | G_MTX_NOPUSH | G_MTX_PROJECTION);
 
     // load and transform model-view matrix
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(transform->modeling)),
