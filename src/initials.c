@@ -132,6 +132,7 @@ void initials_init(unsigned int new_score)
 
     input_escape = input_register();
     input_map(input_escape, INPUT_KEY_ESCAPE);
+    input_map(input_escape, INPUT_BUTTON_START);
 
     for (i = 0; i < 26; i++) {
         input_letters[i] = input_register();
