@@ -38,11 +38,15 @@ To compile on Linux using the Modern SDK, simply run `make`.
 
 ### Option: Low Resolution Mode
 
-The game builds in high resolution mode (640x480) by default. This does not yet render correctly on some emulators (e.g. Sixtyforce), however it works on real hardware so I'm confident that the implementation is valid.
+The game builds in high resolution mode (640x480) by default. This may not yet render correctly on some emulators. However, the ROM works on real hardware so I'm confident that the implementation is valid.
+
+Some emulators (e.g Sixtyforce) will allow you to enable high resolution rendering in the settings:
+
+![Sixtyforce](misc/sixtyforce.png)
 
 To build in low resolution mode (320x240), alter the `DEFINES` at the top of the [Makefile](./GNUmakefile) to include `LOW_RESOLUTION=1`. The graphics will not be as crisp, but the game is perfectly playable.
 
-This screenshot shows low-resolution mode in cen64:
+This screenshot shows low resolution mode in cen64:
 
 ![Low Resolution](misc/lores.png)
 
