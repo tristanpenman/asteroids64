@@ -1,9 +1,6 @@
 #ifndef __DEFINES_H
 #define __DEFINES_H
 
-// graphics
-#define LOW_RESOLUTION 0
-
 // asteroids
 #define ASTEROID_SPEED_MIN 0.05f
 #define ASTEROID_SPEED_MAX 0.11f
