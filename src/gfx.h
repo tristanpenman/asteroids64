@@ -1,12 +1,12 @@
 #ifndef __GFX_H
 #define __GFX_H
 
-#ifndef SCREEN_WD
-#define SCREEN_WD 640
-#endif
-
-#ifndef SCREEN_HT
-#define SCREEN_HT 480
+#ifdef LOW_RESOLUTION
+#  define SCREEN_WD 320
+#  define SCREEN_HT 240
+#else
+#  define SCREEN_WD 640
+#  define SCREEN_HT 480
 #endif
 
 #define SCREEN_RATIO ((float)SCREEN_HT / (float)SCREEN_WD)

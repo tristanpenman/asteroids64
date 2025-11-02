@@ -36,7 +36,18 @@ static void gfx_update_viewport(void)
 static Gfx setup_rdpstate[] = {
     gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_OPA_SURF2),
     gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
+#ifdef LOW_RESOLUTION
+    // Bayer color dithering perturbs each pixel to hide 5-bit-per-channel banding
+    // At 320×240 the VI’s resampling filter averages neighboring pixels while doubling the image,
+    // which causes dithering to be smoothed out
     gsDPSetColorDither(G_CD_BAYER),
+#else
+    // At 640x480, dithered pixels are sent straight to the display. This 4x4 Bayer pattern
+    // shows up as 'grain'. We disable this to ensure solid blacks.
+    gsDPSetColorDither(G_CD_DISABLE),
+    // Have to disable alpha dithering too
+    gsDPSetAlphaDither(G_AD_DISABLE),
+#endif
     gsSPEndDisplayList()
 };
 
@@ -62,7 +73,12 @@ void gfx_init(void)
     nuGfxSetCfb(framebuffer_ptrs, GFX_FRAMEBUFFER_COUNT);
     nuGfxSetZBuffer(depth_buffer);
 
+#ifdef LOW_RESOLUTION
+    osViSetMode(&osViModeNtscLpf1);
+#else
     osViSetMode(&osViModeNtscHpf1);
+    osViSetSpecialFeatures(OS_VI_GAMMA_OFF | OS_VI_GAMMA_DITHER_OFF | OS_VI_DITHER_FILTER_ON);
+#endif
 
     gfx_update_viewport();
 }
