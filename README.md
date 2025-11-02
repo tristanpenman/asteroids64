@@ -1,18 +1,18 @@
 # Asteroids 64
 
-This is the code for a work-in-progress N64 port of my [Asteroids clone](https://github.com/tristanpenman/asteroids).
+This is the code for a Nintendo 64 port of my [Asteroids clone](https://github.com/tristanpenman/asteroids).
 
-The general approach that I've taken is to gradually refactor the code so that platform-specific code is well encapsulated, before back-porting those changes to the original codebase. My plan is to eventually merge the two codebases, and build both versions from the same set of source and data files.
+I've tried to maintain the original separation of concerns, so that the game logic is as similar as possible to the original implementation.
 
 You can get the latest build [here](misc/asteroids.z64).
 
 ## Emulator Support
 
-The code is frequently tested using [cen64](https://github.com/n64dev/cen64). It has also been tested using [Sixtyforce](https://sixtyforce.com/) on macOS and [Project64](https://www.pj64-emu.com/) on Windows.
+The code is frequently tested using [ares](https://ares-emu.net/) and [cen64](https://github.com/n64dev/cen64). It has also been tested using [Sixtyforce](https://sixtyforce.com/) on macOS and [Project64](https://www.pj64-emu.com/) on Windows.
 
-Here's the game running in cen64:
+Here are some screenshots of the game running in _ares_, showing the title screen:
 
-![Screenshot in cen64](misc/screenshot.png)
+![Titlescreen](misc/titlescreen.png)
 
 ## Real Hardware
 
@@ -36,15 +36,25 @@ To compile on Windows or Wine, you can run `compile.bat`. A script for running v
 
 To compile on Linux using the Modern SDK, simply run `make`.
 
+### Option: Low Resolution Mode
+
+The game builds in high resolution mode (640x480) by default. This does not yet render correctly on some emulators (e.g. Sixtyforce), however it works on real hardware so I'm confident that the implementation is valid.
+
+To build in low resolution mode (320x240), alter the `DEFINES` at the top of the [Makefile](./GNUmakefile) to include `LOW_RESOLUTION=1`. The graphics will not be as crisp, but the game is perfectly playable.
+
+This screenshot shows low-resolution mode in cen64:
+
+![Low Resolution](misc/lores.png)
+
 ### UNFLoader
 
-The ROM can also be loaded via USB.
+The ROM can be loaded onto a flash cart via USB.
 
 This repo contains a heavily modified version of the USB and Debug Library from [UNFLoader](https://github.com/buu342/N64-UNFLoader/) (see [usb.c](usb.c) and [debug.c](./debug.c)). I have removed code that was not relevant to this project, and modified some function signatures to better fit with the cross-platform needs of this project.
 
 Even with the changes, you can still load the ROM using the original `UNFLoader` executable:
 
-    UNFLoader -d -r asteroids.n64
+    UNFLoader -d -r build/asteroids.z64
 
 The `-d` flag enables debug mode, and will show the output of `debug_printf` calls from the ROM in your terminal.
 
