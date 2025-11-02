@@ -93,7 +93,7 @@ void titlescreen_loop(bool draw)
         h_down = true;
     } else if (h_down) {
         leaderboard_init();
-        set_main_loop(leaderboard_loop); 
+        set_main_loop(leaderboard_loop);
         return;
     } else {
         h_down = false;
