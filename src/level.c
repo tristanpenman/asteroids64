@@ -67,6 +67,7 @@ static int input_thruster;
 
 // misc state
 static float next_level_countdown;
+static bool paused;
 
 // debug
 static int collision_tests_per_frame;
@@ -417,6 +418,11 @@ static void level_draw()
 
     draw_score(player.score);
 
+    if (paused) {
+        canvas_set_colour(255.0f, 255.0f, 255.0f);
+        canvas_draw_text_centered("PAUSED", 0.0f, 0.7f);
+    }
+
 #ifdef DEBUG
     canvas_draw_text_centered(debug, -0.35f, 0.3f);
 #endif
@@ -437,13 +443,27 @@ static void level_update()
     collision_tests_per_frame = 0;
 
     input_update();
-    input_read_joystick(&joystick_x, NULL);
+
+    if (input_triggered(input_pause)) {
+        paused = !paused;
+
+        if (paused && snd_handle != 0) {
+            nuAuStlSndPlayerSndStop(snd_handle, 0);
+            snd_handle = 0;
+        }
+    }
 
     if (input_active(input_escape)) {
         titlescreen_init();
         set_main_loop(titlescreen_loop);
         return;
     }
+
+    if (paused) {
+        return;
+    }
+
+    input_read_joystick(&joystick_x, NULL);
 
     produce_simulation_time();
     while (maybe_consume_simulation_time(TIME_STEP_MILLIS)) {
@@ -606,6 +626,9 @@ void level_init(int new_level, int new_lives, int new_score)
 
     player.lives = new_lives;
     player.score = new_score;
+
+    paused = false;
+    snd_handle = 0;
 }
 
 void level_loop(bool draw)
