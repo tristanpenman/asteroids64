@@ -46,7 +46,7 @@ Some emulators (e.g Sixtyforce) will allow you to enable high resolution renderi
 
 To build in low resolution mode (320x240), alter the `DEFINES` at the top of the [Makefile](./GNUmakefile) to include `LOW_RESOLUTION=1`. The graphics will not be as crisp, but the game is perfectly playable.
 
-This screenshot shows low resolution mode in cen64:
+This screenshot shows low resolution mode in Ares:
 
 ![Low Resolution](misc/lores.png)
 

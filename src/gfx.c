@@ -73,9 +73,7 @@ void gfx_init(void)
     nuGfxSetCfb(framebuffer_ptrs, GFX_FRAMEBUFFER_COUNT);
     nuGfxSetZBuffer(depth_buffer);
 
-#ifdef LOW_RESOLUTION
-    osViSetMode(&osViModeNtscLpf1);
-#else
+#ifndef LOW_RESOLUTION
     osViSetMode(&osViModeNtscHpf1);
     osViSetSpecialFeatures(OS_VI_GAMMA_OFF | OS_VI_GAMMA_DITHER_OFF | OS_VI_DITHER_FILTER_ON);
 #endif
