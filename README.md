@@ -6,7 +6,9 @@ I've tried to maintain the original separation of concerns, so that the game log
 
 You can get the latest build [here](misc/asteroids.z64).
 
-## Emulator Support
+## Features
+
+### Emulator Support
 
 The code is frequently tested using [ares](https://ares-emu.net/) and [cen64](https://github.com/n64dev/cen64). It has also been tested using [Sixtyforce](https://sixtyforce.com/) on macOS and [Project64](https://www.pj64-emu.com/) on Windows.
 
@@ -14,27 +16,86 @@ Here are some screenshots of the game running in _ares_, showing the title scree
 
 ![Titlescreen](misc/titlescreen.png)
 
-## Real Hardware
+### Real Hardware
 
 The ROM can simply be copied to a flash cart such as the [EverDrive-64](https://krikzz.com/store/home/55-everdrive-64-x7.html). I've tested this using an X7 cart, however it should work on any flash cart.
 
-## Rumble Pak
+### Rumble Pak
 
 The game is compatible with Rumble Paks and Controller Paks.
 
 When a Rumble Pak is inserted, it will be activated by ship explosions.
 
-## Controller Pak
+### Controller Pak
 
 When an Controller Pak is inserted, high scores will be saved into a file on the Controller Pak.
 
-## Compiling the ROM
+## Build
 
-This code has been written to compile using the original Nintendo 64 SDK on Windows (or Wine), and also using CrashOverride95's [Modern SDK](https://crashoveride95.github.io/n64hbrew/modernsdk/index.html) which is Linux port of the SDK.
+This code can be compiled using CrashOverride95's [Modern SDK](https://crashoveride95.github.io/n64hbrew/modernsdk/index.html), which provides a modern Linux port of the Nintendo 64 SDK.
 
-To compile on Windows or Wine, you can run `compile.bat`. A script for running via wine has also been included in `build.sh`.
+There are two options for compiling the source code. It is recommended that you use the fully self-contained Docker image in [Dockerfile.n64](Dockerfile.n64). Alternatively, you can manually install build dependencies on an Ubuntu- or Debian-compatible system.
 
-To compile on Linux using the Modern SDK, simply run `make`.
+### Docker
+
+To compile using Docker, it is recommend that you have Docker Compose installed.
+
+This will allow you to use a bundled build script to run the container. This will ensure that file permissions are set correctly, and tear down the container afterwards:
+
+```
+./scripts/n64.sh
+```
+
+### Option: Local Install
+
+To install the build dependencies locally, you should follow CrashOverride95's [Getting Started](https://crashoveride95.github.io/modernsdk/startoff.html) guide. The steps are summarised below.
+
+Start by adding the necessary apt repo:
+
+```
+echo "deb [trusted=yes] https://crashoveride95.github.io/apt/ ./" | sudo tee /etc/apt/sources.list.d/n64sdk.list
+sudo apt update
+sudo apt install binutils-mips-n64 gcc-mips-n64 newlib-mips-n64
+```
+
+Install the SDK (does not include nusys):
+
+```
+sudo apt install n64sdk n64-demos makemask
+```
+
+Install nusys and nusys demos:
+
+```
+sudo apt install nusys-demos
+```
+
+You may also need to set up the root compatibility environment:
+
+```
+sudo apt install root-compatibility-environment
+sudo dpkg --add-architecture i386
+```
+
+Finally, make the following changes to `.bashrc` or `.profile`:
+```
+# N64
+export N64_LIBGCCDIR="/opt/crashsdk/lib/gcc/mips64-elf/12.2.0"
+export PATH=$PATH:/opt/crashsdk/bin
+export ROOT=/etc/n64
+```
+
+### Make
+
+Using either environment, there is a single Makefile:
+
+```
+make
+```
+
+This will output `build/asteroids.z64`.
+
+## Testing
 
 ### Option: Low Resolution Mode
 
