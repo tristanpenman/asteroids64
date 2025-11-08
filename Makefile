@@ -42,6 +42,10 @@ BOOT_OBJ       := $(BUILD_DIR)/boot.6102.o
 # Directories containing source files
 SRC_DIRS       += src asm assets
 
+# Include sub-directories
+SRC_DIRS       += $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*/))
+
+# Enumerate source files
 C_FILES        := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 S_FILES        := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.s))
 
