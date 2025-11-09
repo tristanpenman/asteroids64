@@ -3,8 +3,14 @@
 TARGET_STRING := asteroids
 TARGET := $(TARGET_STRING)
 
-# Preprocessor definitions
-DEFINES := _FINALROM=1 NDEBUG=1 F3DEX_GBI_2=1 N64 # LOW_RESOLUTION
+# Preprocessor definitions for debug builds
+DEFINES := _FINALROM=1 DEBUG_MODE=1 F3DEX_GBI_2=1 N64 NDEBUG=0
+
+# Preprocessor definitions for release builds
+# DEFINES := _FINALROM=1 DEBUG_MODE=0 F3DEX_GBI_2=1 N64
+
+# Enable low resolution mode:
+# DEFINES += LOW_RESOLUTION
 
 SRC_DIRS :=
 

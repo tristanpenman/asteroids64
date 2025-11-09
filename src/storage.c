@@ -1,8 +1,6 @@
 #include <string.h>
 
-#include <nusys.h>
-
-#include "debug.h"
+#include "platform.h"
 #include "storage.h"
 
 #define COMPANY_CODE "ZZ"

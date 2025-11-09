@@ -11,7 +11,7 @@
 
 #define SCREEN_RATIO ((float)SCREEN_HT / (float)SCREEN_WD)
 
-#include <nusys.h>
+#include "platform.h"
 
 // The maximum length of the display list of one task
 #define GFX_GLIST_LEN 2048

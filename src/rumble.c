@@ -1,6 +1,4 @@
-#include <nusys.h>
-
-#include "debug.h"
+#include "platform.h"
 #include "rumble.h"
 
 static bool available = false;

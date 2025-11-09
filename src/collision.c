@@ -1,9 +1,10 @@
+#include <math.h>
 #include <stdlib.h>
 
 #include "data.h"
 #include "entities.h"
+#include "platform.h"
 #include "shape.h"
-#include "mathdefs.h"
 #include "vec.h"
 
 /******************************************************************************

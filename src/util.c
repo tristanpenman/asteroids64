@@ -1,9 +1,8 @@
+#include <math.h>
 #include <stdlib.h>
 
-#include <nusys.h>
-
 #include "defines.h"
-#include "mathdefs.h"
+#include "platform.h"
 #include "types.h"
 #include "util.h"
 #include "vec.h"

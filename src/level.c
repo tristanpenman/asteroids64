@@ -1,14 +1,11 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include <nusys.h>
-#include <nualstl_n.h>
-
 #include "canvas.h"
 #include "collision.h"
 #include "data.h"
-#include "debug.h"
 #include "defines.h"
 #include "draw.h"
 #include "entities.h"
@@ -18,7 +15,7 @@
 #include "initials.h"
 #include "input.h"
 #include "loop.h"
-#include "mathdefs.h"
+#include "platform.h"
 #include "rumble.h"
 #include "shape.h"
 #include "timing.h"
@@ -26,6 +23,8 @@
 #include "transition.h"
 #include "util.h"
 #include "vec.h"
+
+#include <nualstl_n.h>
 
 // how close objects need to be before performing collision detection
 #define COLLISION_THRESHOLD 0.1f

@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -5,7 +6,6 @@
 #include "defines.h"
 #include "entities.h"
 #include "gfx.h"
-#include "mathdefs.h"
 #include "shape.h"
 #include "util.h"
 

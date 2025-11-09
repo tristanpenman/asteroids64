@@ -2,13 +2,11 @@
 #include <math.h>
 #include <string.h>
 
-#include <nusys.h>
-
 #include "canvas.h"
 #include "data.h"
-#include "debug.h"
 #include "defines.h"
 #include "gfx.h"
+#include "platform.h"
 #include "shape.h"
 #include "vec.h"
 

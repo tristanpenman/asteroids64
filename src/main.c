@@ -1,20 +1,19 @@
 #include <stdlib.h>
 
-#include <nusys.h>
-#include <nualstl_n.h>
-
-#include "debug.h"
 #include "gfx.h"
 #include "highscores.h"
 #include "input.h"
 #include "level.h"
 #include "loop.h"
+#include "platform.h"
 #include "rumble.h"
 #include "sandbox.h"
 #include "segment.h"
 #include "storage.h"
 #include "titlescreen.h"
 #include "vec.h"
+
+#include <nualstl_n.h>
 
 #define NUM_PI_MSGS 8
 
@@ -56,17 +55,26 @@ char* titlescreen()
 
 void mainproc()
 {
-    gfx_init();
-
-    debug_init();
+    // UNFLoader Debug library
+    debug_initialize();
     debug_addcommand("sandbox", "Switch to sandbox mode", sandbox);
     debug_addcommand("level", "Switch to level mode", level);
     debug_addcommand("titlescreen", "Switch to titlescreen", titlescreen);
     debug_printf("Starting...\n");
 
+    // N64 graphics
+    debug_printf("gfx_init...\n");
+    gfx_init();
+
+    // N64 audio
+    debug_printf("audio_init...\n");
+    audio_init();
+
+    // N64 input
     debug_printf("input_init...\n");
     input_init();
 
+    // Controller Pak
     debug_printf("highscores_load...\n");
     if (storage_available()) {
         if (!highscores_load()) {
@@ -77,11 +85,9 @@ void mainproc()
         debug_printf(" - storage not available\n");
     }
 
+    // Rumble Pak
     debug_printf("rumble_init...\n");
     rumble_init();
-
-    debug_printf("audio_init...\n");
-    audio_init();
 
     titlescreen_init();
     set_main_loop(titlescreen_loop);

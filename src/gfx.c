@@ -1,7 +1,5 @@
-#include <nusys.h>
-#include <PR/os_vi.h>
-
 #include "gfx.h"
+#include "platform.h"
 
 Gfx gfx_glist[GLX_GLIST_COUNT][GFX_GLIST_LEN];
 Dynamic gfx_dynamic;

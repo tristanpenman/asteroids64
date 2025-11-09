@@ -1,7 +1,11 @@
-#ifndef __MATHF_H
-#define __MATHF_H
+#ifndef __PLATFORM_H
 
-#include <math.h>
+#include <nusys.h>
+
+#include "unfloader/debug.h"
+#include "unfloader/usb.h"
+
+#include "types.h"
 
 #ifndef sinf
 #define sinf sin
@@ -13,10 +17,6 @@
 
 #ifndef sqrtf
 #define sqrtf sqrt
-#endif
-
-#ifndef M_PI
-#define M_PI 3.14159265358979323846264338327950288
 #endif
 
 #endif

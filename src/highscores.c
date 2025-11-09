@@ -1,8 +1,8 @@
 #include <string.h>
 
-#include "debug.h"
 #include "defines.h"
 #include "highscores.h"
+#include "platform.h"
 #include "storage.h"
 
 /******************************************************************************

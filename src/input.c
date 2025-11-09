@@ -1,9 +1,7 @@
 #include <string.h>
 
-#include <nusys.h>
-#include <nualstl_n.h>
-
 #include "input.h"
+#include "platform.h"
 
 struct check {
     enum input inp;

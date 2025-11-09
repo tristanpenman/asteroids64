@@ -3,10 +3,10 @@
 
 #include "canvas.h"
 #include "data.h"
-#include "debug.h"
 #include "entities.h"
 #include "input.h"
 #include "leaderboard.h"
+#include "platform.h"
 #include "loop.h"
 #include "timing.h"
 #include "transition.h"

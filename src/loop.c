@@ -1,7 +1,5 @@
-#include <nusys.h>
-
-#include "debug.h"
 #include "loop.h"
+#include "platform.h"
 
 static main_loop_fn_t main_loop = NULL;
 
